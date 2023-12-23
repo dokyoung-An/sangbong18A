@@ -1,7 +1,7 @@
 // Garden Gnome Software - Skin
 // Pano2VR 7.0.8/20017
 // Filename: ???? ??? ?? ??.ggsk
-// Generated 2023-12-23T16:35:40
+// Generated 2023-12-23T16:41:59
 
 function pano2vrSkin(player,base) {
 	player.addVariable('vis_roomchoice', 2, false, { ignoreInState: 0  });
@@ -3750,12 +3750,22 @@ function pano2vrSkin(player,base) {
 		me.__52.onmouseover=function (e) {
 			me.elementMouseOver['_52']=true;
 		}
+		me.__52.onmousedown=function (e) {
+			me.elementMouseDown['_52']=true;
+			me.__54.logicBlock_text();
+		}
+		me.__52.onmouseup=function (e) {
+			me.elementMouseDown['_52']=false;
+			me.__54.logicBlock_text();
+		}
 		me.__52.onmousemove=function (e) {
 			me.__54.style.transition='none';
 			me.__54.style.visibility=(Number(me.__54.style.opacity)>0||!me.__54.style.opacity)?'inherit':'hidden';
 			me.__54.ggVisible=true;
 		}
 		me.__52.onmouseout=function (e) {
+			me.elementMouseDown['_52']=false;
+			me.__54.logicBlock_text();
 			me.elementMouseOver['_52']=false;
 		}
 		me.__52.ggCurrentLogicStateVisible = -1;
@@ -3866,6 +3876,55 @@ function pano2vrSkin(player,base) {
 			}
 			return player.getCurrentNode();
 		}
+		me.__54.logicBlock_text = function() {
+			var newLogicStateText;
+			if (
+				((me.elementMouseDown['_52'] == true))
+			)
+			{
+				newLogicStateText = 0;
+			}
+			else {
+				newLogicStateText = -1;
+			}
+			if (me.__54.ggCurrentLogicStateText != newLogicStateText) {
+				me.__54.ggCurrentLogicStateText = newLogicStateText;
+				me.__54.style.transition='';
+				if (me.__54.ggCurrentLogicStateText == 0) {
+					if (me.__54.ggUpdateText) {
+					me.__54.ggUpdateText=function() {
+						var params = [];
+						var hs = player._("\ubcf5\uc0ac\uc644\ub8cc", params);
+						if (hs!=this.ggText) {
+							this.ggText=hs;
+							this.ggTextDiv.innerHTML=hs;
+							if (this.ggUpdatePosition) this.ggUpdatePosition();
+						}
+					}
+					me.__54.ggUpdateText();
+					} else {
+						if (me.__54.ggUpdatePosition) me.__54.ggUpdatePosition();
+					}
+				}
+				else {
+					if (me.__54.ggUpdateText) {
+					me.__54.ggUpdateText=function() {
+						var params = [];
+						var hs = player._("\ub9c1\ud06c\ubcf5\uc0ac\n", params);
+						if (hs!=this.ggText) {
+							this.ggText=hs;
+							this.ggTextDiv.innerHTML=hs;
+							if (this.ggUpdatePosition) this.ggUpdatePosition();
+						}
+					}
+					me.__54.ggUpdateText();
+					} else {
+						if (me.__54.ggUpdatePosition) me.__54.ggUpdatePosition();
+					}
+				}
+			}
+		}
+		me.__54.logicBlock_text();
 		me.__54.ggUpdatePosition=function (useTransition) {
 		}
 		me.__52.appendChild(me.__54);
@@ -10543,6 +10602,7 @@ function pano2vrSkin(player,base) {
 		me.__57.logicBlock_visible();
 		me.__56.logicBlock_visible();
 		me.__52.logicBlock_visible();
+		me.__54.logicBlock_text();
 		me.__51.logicBlock_visible();
 		me.__47.logicBlock_visible();
 		me.__50.logicBlock_visible();
